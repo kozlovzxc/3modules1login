@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 
@@ -18,6 +19,8 @@ import { AuthState } from './stores/auth.state';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgxsModule.forRoot([AuthState]),
     NgxsLoggerPluginModule.forRoot({ disabled: environment.production }), // must be last nxgs import
   ],

@@ -1,3 +1,12 @@
-<p>
-  login works!
-</p>
+<form [formGroup]="loginForm">
+  <p><label>Username: </label><input requred type="text" placeholder="admin" formControlName="username"></p>
+  <div *ngIf="shouldShowErrors(username)">
+    <p class="error" *ngIf="username.errors.required">You need to specify username</p>
+  </div>
+  <p><label>Password: </label><input requred type="password" formControlName="password"></p>
+  <div *ngIf="shouldShowErrors(password)">
+    <p class="error" *ngIf="password.errors.required">You need to specify password</p>
+    <p class="error" *ngIf="password.errors.minlength">Password must be more than 8 characters</p>
+  </div>
+  <button type="submit" [disabled]="loginForm.invalid" (click)="login()">Login!</button>
+</form>
