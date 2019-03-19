@@ -3,7 +3,7 @@ import { Store, NgxsModule } from '@ngxs/store';
 import { of, throwError } from 'rxjs';
 
 import { AuthState } from './auth.state';
-import { Login } from './auth.actions';
+import { Login, Logout } from './auth.actions';
 import { AuthService } from '../services/auth.service';
 
 describe('AuthState', () => {
@@ -33,6 +33,13 @@ describe('AuthState', () => {
     store.select(AuthState.authenticated).subscribe(
       (authenticated) => expect(authenticated).toBeFalsy(),
       (error) => expect(error).toBeTruthy(),
+    );
+  }));
+
+  it('unset authenticate on logout', async(() => {
+    store.dispatch(new Logout());
+    store.select(AuthState.authenticated).subscribe(
+      (authenticated) => expect(authenticated).toBeFalsy(),
     );
   }));
 });

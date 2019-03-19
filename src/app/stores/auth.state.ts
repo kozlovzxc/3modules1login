@@ -5,7 +5,7 @@ import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { throwError } from 'rxjs';
 
 import { AuthService } from '../services/auth.service';
-import { Login } from './auth.actions';
+import { Login, Logout } from './auth.actions';
 
 interface AuthStateModel {
   authenticated: boolean;
@@ -42,5 +42,13 @@ export class AuthState {
       onLogin,
       onError,
     );
+  }
+
+  @Action(Logout)
+  Logout({ setState }: StateContext<AuthStateModel>) {
+    setState({
+      authenticated: false,
+      error: null,
+    });
   }
 }
