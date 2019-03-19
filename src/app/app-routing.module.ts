@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './utils/auth.guard';
 
 const routes: Routes = [
   {
@@ -15,10 +16,12 @@ const routes: Routes = [
   {
     path: 'second',
     loadChildren: './modules/second/second.module#SecondModule',
+    canActivate: [AuthGuard],
   },
   {
     path: 'third',
     loadChildren: './modules/third/third.module#ThirdModule',
+    canActivate: [AuthGuard],
   },
 ];
 
