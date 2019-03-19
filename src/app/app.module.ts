@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { environment } from 'src/environments/environment';
+import { AuthService } from './services/auth.service';
+import { AuthState } from './stores/auth.state';
 
 @NgModule({
   declarations: [
@@ -16,10 +18,12 @@ import { environment } from 'src/environments/environment';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxsModule,
+    NgxsModule.forRoot([AuthState]),
     NgxsLoggerPluginModule.forRoot({ disabled: environment.production }), // must be last nxgs import
   ],
-  providers: [],
+  providers: [
+    AuthService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
