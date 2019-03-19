@@ -23,13 +23,15 @@ describe('AuthState', () => {
 
   it('set authenticate on valid login and password', async(() => {
     spyAuthService.login.and.returnValue(of(null));
-    store.dispatch(new Login('admin', 'password'));
+    const nothing = () => {};
+    store.dispatch(new Login('admin', 'password')).subscribe(nothing, nothing, nothing);
     store.select(AuthState.authenticated).subscribe((authenticated) => expect(authenticated).toBeTruthy());
   }));
 
   it('unset authenticate on invalid login or password', async(() => {
     spyAuthService.login.and.returnValue(throwError(new Error('invalid login or password')));
-    store.dispatch(new Login('admin', 'notpassword'));
+    const nothing = () => {};
+    store.dispatch(new Login('admin', 'notpassword')).subscribe(nothing, nothing, nothing);
     store.select(AuthState.authenticated).subscribe(
       (authenticated) => expect(authenticated).toBeFalsy(),
       (error) => expect(error).toBeTruthy(),

@@ -30,7 +30,7 @@ export class AuthState {
 
   @Action(Login)
   login({ setState }: StateContext<AuthStateModel>,  { username, password }: Login) {
-    const onLogin = () => { setState({ authenticated: true, error: null }); };
+    const onSuccess = () => { setState({ authenticated: true, error: null }); };
     const onError = (error: Error) => {
       setState({
         authenticated: false,
@@ -39,16 +39,17 @@ export class AuthState {
       return throwError(error);
     };
     this.authService.login(username, password).subscribe(
-      onLogin,
+      onSuccess,
       onError,
     );
   }
 
   @Action(Logout)
   Logout({ setState }: StateContext<AuthStateModel>) {
-    setState({
+    const onSuccess = () => setState({
       authenticated: false,
       error: null,
     });
+    this.authService.logout().subscribe(onSuccess);
   }
 }
