@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxsModule, Store } from '@ngxs/store';
 
 import { LoginComponent } from './login.component';
@@ -20,6 +21,7 @@ describe('LoginComponent', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
+        HttpClientTestingModule,
         NgxsModule.forRoot([AuthState]),
       ],
       providers: [

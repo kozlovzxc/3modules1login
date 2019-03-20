@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IndexComponent } from './index.component';
 import { NgxsModule } from '@ngxs/store';
 import { AuthState } from 'src/app/stores/auth.state';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('IndexComponent', () => {
   let component: IndexComponent;
@@ -10,7 +11,10 @@ describe('IndexComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NgxsModule.forRoot([AuthState])],
+      imports: [
+        HttpClientTestingModule,
+        NgxsModule.forRoot([AuthState]),
+      ],
       declarations: [ IndexComponent ],
     })
     .compileComponents();

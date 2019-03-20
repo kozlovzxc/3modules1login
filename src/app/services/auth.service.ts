@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
 import { of, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+  ) { }
 
   login(username: string, password: string) {
-    const isExistingUser = username === 'admin' && password === 'password';
-    return isExistingUser ? of(null) : throwError(new Error('Invalid login or password'));
+    return this.http.post<String>('/api/login', {
+      username,
+      password,
+    });
   }
 
   logout() {
-    return of(null);
+    return this.http.post<String>('/api/logout', {});
   }
 }

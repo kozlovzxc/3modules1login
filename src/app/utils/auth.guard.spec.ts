@@ -5,6 +5,7 @@ import { NgxsModule, Store } from '@ngxs/store';
 import { AuthState } from '../stores/auth.state';
 import { SetState } from '../stores/auth.actions';
 import { Router } from '@angular/router';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AuthGuard', () => {
   let store: Store;
@@ -13,6 +14,7 @@ describe('AuthGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
+        HttpClientTestingModule,
         NgxsModule.forRoot([AuthState]),
       ],
       providers: [
