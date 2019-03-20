@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   @Select(AuthState.authenticated) authenticated$: Observable<boolean>;
+  @Select(AuthState.error) error$: Observable<Error>;
   loginForm: FormGroup;
   get username() { return this.loginForm.get('username'); }
   get password() { return this.loginForm.get('password'); }

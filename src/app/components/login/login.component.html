@@ -9,4 +9,8 @@
     <p class="error" *ngIf="password.errors.minlength">Password must be more than 8 characters</p>
   </div>
   <button type="submit" [disabled]="loginForm.invalid" (click)="login()">Login!</button>
+  <p *ngIf="error$ | async as error" class="error">
+    <span *ngIf="error.status === 401; else default">Incorrect login or password</span>
+    <ng-template #default>There is error on the server, try later</ng-template>
+  </p>
 </form>

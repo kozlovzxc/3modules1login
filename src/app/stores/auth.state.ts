@@ -29,6 +29,11 @@ export class AuthState {
   }
 
   @Selector()
+  static error(state: AuthStateModel) {
+    return state.error;
+  }
+
+  @Selector()
   static state(state: AuthStateModel) {
     return state;
   }
