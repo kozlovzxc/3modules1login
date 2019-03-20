@@ -9,7 +9,7 @@ import { AuthService } from '../services/auth.service';
 describe('AuthState', () => {
   let store: Store;
 
-  const spyAuthService = jasmine.createSpyObj('AuthService', ['login']);
+  const spyAuthService = jasmine.createSpyObj('AuthService', ['login', 'logout']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -39,6 +39,7 @@ describe('AuthState', () => {
   }));
 
   it('unset authenticate on logout', async(() => {
+    spyAuthService.logout.and.returnValue(of(null));
     store.dispatch(new Logout());
     store.select(AuthState.authenticated).subscribe(
       (authenticated) => expect(authenticated).toBeFalsy(),
