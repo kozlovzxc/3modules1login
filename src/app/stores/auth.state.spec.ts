@@ -47,18 +47,18 @@ describe('AuthState', () => {
 
   it('should change authenticated on SetState', () => {
     let state: any;
-    store.dispatch(new SetState(true, null));
+    store.dispatch(new SetState(true));
     state = store.selectSnapshot(AuthState.state);
     expect(state.authenticated).toBeTruthy();
 
-    store.dispatch(new SetState(false, null));
+    store.dispatch(new SetState(false));
     state = store.selectSnapshot(AuthState.state);
     expect(state.authenticated).toBeFalsy();
   });
 
   it('should change error on SetState', () => {
     let state: any;
-    store.dispatch(new SetState(true, null));
+    store.dispatch(new SetState(false, null));
     state = store.selectSnapshot(AuthState.state);
     expect(state.error).toBeNull();
 

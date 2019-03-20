@@ -9,5 +9,5 @@ export class Logout {
 
 export class SetState {
   static readonly type = '[Auth] SetState';
-  constructor(public authenticated: boolean, public error: Error) { }
+  constructor(public authenticated: boolean, public error: Error = null) { }
 }

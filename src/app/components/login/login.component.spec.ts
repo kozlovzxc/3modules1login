@@ -5,9 +5,7 @@ import { NgxsModule, Store } from '@ngxs/store';
 
 import { LoginComponent } from './login.component';
 import { AuthState } from 'src/app/stores/auth.state';
-import { Login } from 'src/app/stores/auth.actions';
-import { AuthService } from 'src/app/services/auth.service';
-import { of } from 'rxjs';
+import { SetState } from 'src/app/stores/auth.actions';
 
 describe('LoginComponent', () => {
   let store: Store;
@@ -15,11 +13,10 @@ describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
 
   const spyRouter = jasmine.createSpyObj('Router', ['navigate']);
-  const spyAuthService = jasmine.createSpyObj('AuthService', ['login']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
+      declarations: [LoginComponent],
       imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -27,10 +24,9 @@ describe('LoginComponent', () => {
       ],
       providers: [
         { provide: Router, useValue: spyRouter },
-        { provide: AuthService, useValue: spyAuthService },
       ],
     })
-    .compileComponents();
+      .compileComponents();
     store = TestBed.get(Store);
   }));
 
@@ -45,8 +41,7 @@ describe('LoginComponent', () => {
   });
 
   it('should navigate on authentication', () => {
-    spyAuthService.login.and.returnValue(of(null));
-    store.dispatch(new Login('admin', 'password'));
+    store.dispatch(new SetState(true));
     store.select(AuthState.authenticated).subscribe((authenticated) => expect(authenticated).toBeTruthy());
   });
 });

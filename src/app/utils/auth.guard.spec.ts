@@ -3,14 +3,11 @@ import { TestBed, inject } from '@angular/core/testing';
 import { AuthGuard } from './auth.guard';
 import { NgxsModule, Store } from '@ngxs/store';
 import { AuthState } from '../stores/auth.state';
-import { Login } from '../stores/auth.actions';
-import { AuthService } from '../services/auth.service';
-import { of, throwError } from 'rxjs';
+import { SetState } from '../stores/auth.actions';
 import { Router } from '@angular/router';
 
 describe('AuthGuard', () => {
   let store: Store;
-  const spyAuthService = jasmine.createSpyObj('AuthService', ['login']);
   const spyRouterService = jasmine.createSpyObj('Router', ['navigate']);
 
   beforeEach(() => {
@@ -20,7 +17,6 @@ describe('AuthGuard', () => {
       ],
       providers: [
         AuthGuard,
-        { provide: AuthService, useValue: spyAuthService },
         { provide: Router, useValue: spyRouterService },
       ],
     });
@@ -28,15 +24,13 @@ describe('AuthGuard', () => {
   });
 
   it('pass on authenticated user', inject([AuthGuard], (guard: AuthGuard) => {
-    spyAuthService.login.and.returnValue(of(null));
-    store.dispatch(new Login('admin', 'password'));
+    store.dispatch(new SetState(true));
     const canActivate = guard.canActivate();
     expect(canActivate).toBeTruthy();
   }));
 
   it('redirect on authenticated user', inject([AuthGuard], (guard: AuthGuard) => {
-    spyAuthService.login.and.returnValue(throwError(new Error('invalid login or password')));
-    store.dispatch(new Login('admin', 'password'));
+    store.dispatch(new SetState(false));
     const canActivate = guard.canActivate();
     expect(canActivate).toBeFalsy();
     expect(spyRouterService.navigate).toHaveBeenCalledWith(['/login']);
