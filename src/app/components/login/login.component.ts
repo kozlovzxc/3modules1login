@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   @Select(AuthState.authenticated) authenticated$: Observable<boolean>;
   @Select(AuthState.error) error$: Observable<Error>;
   loginForm: FormGroup;
-  get username() { return this.loginForm.get('username'); }
+  get login() { return this.loginForm.get('login'); }
   get password() { return this.loginForm.get('password'); }
 
   constructor(
@@ -33,15 +33,15 @@ export class LoginComponent implements OnInit {
       }
     });
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
+      login: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
   shouldShowErrors(control: FormControl) { return control.invalid && (control.dirty || control.touched); }
 
-  login() {
-    const {username, password} = this.loginForm.value;
-    this.store.dispatch(new Login(username, password));
+  tryLogin() {
+    const {login, password} = this.loginForm.value;
+    this.store.dispatch(new Login(login, password));
   }
 }

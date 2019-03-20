@@ -1,14 +1,14 @@
 <form [formGroup]="loginForm">
-  <p><label>Username: </label><input requred type="text" placeholder="admin" formControlName="username"></p>
-  <div *ngIf="shouldShowErrors(username)">
-    <p class="error" *ngIf="username.errors.required">You need to specify username</p>
+  <p><label>login: </label><input requred type="text" placeholder="admin" formControlName="login"></p>
+  <div *ngIf="shouldShowErrors(login)">
+    <p class="error" *ngIf="login.errors.required">You need to specify login</p>
   </div>
   <p><label>Password: </label><input requred type="password" formControlName="password"></p>
   <div *ngIf="shouldShowErrors(password)">
     <p class="error" *ngIf="password.errors.required">You need to specify password</p>
     <p class="error" *ngIf="password.errors.minlength">Password must be more than 8 characters</p>
   </div>
-  <button type="submit" [disabled]="loginForm.invalid" (click)="login()">Login!</button>
+  <button type="submit" [disabled]="loginForm.invalid" (click)="tryLogin()">Login!</button>
   <p *ngIf="error$ | async as error" class="error">
     <span *ngIf="error.status === 401; else default">Incorrect login or password</span>
     <ng-template #default>There is error on the server, try later</ng-template>

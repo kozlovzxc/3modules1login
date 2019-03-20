@@ -39,7 +39,7 @@ export class AuthState {
   }
 
   @Action(Login)
-  login({ setState }: StateContext<AuthStateModel>, { username, password }: Login) {
+  login({ setState }: StateContext<AuthStateModel>, { login, password }: Login) {
     const onSuccess = () => { setState({ authenticated: true, error: null }); };
     const onError = (error: Error) => {
       setState({
@@ -48,7 +48,7 @@ export class AuthState {
       });
       return throwError(error);
     };
-    this.authService.login(username, password).subscribe(
+    this.authService.login(login, password).subscribe(
       onSuccess,
       onError,
     );

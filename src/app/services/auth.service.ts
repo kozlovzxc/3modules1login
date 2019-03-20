@@ -11,9 +11,9 @@ export class AuthService {
     private http: HttpClient,
   ) { }
 
-  login(username: string, password: string) {
+  login(login: string, password: string) {
     return this.http.post<String>('/api/login', {
-      username,
+      login: login,
       password,
     });
   }
